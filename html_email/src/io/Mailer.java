@@ -32,7 +32,7 @@ public class Mailer {
         }
     }
 	
-	public static void main(String[] args) {
+	public static void send(String content) {
 		String from = "jan@janriks.com";
         String to = "nicolas@divirad.com";
         String subject = "test";
@@ -59,7 +59,7 @@ public class Mailer {
             MimeMultipart multipart = new MimeMultipart("related");
 
             BodyPart messageBodyPart = new MimeBodyPart();
-            
+            html = html.replace("<div class=\"emailcontent\"></div>", "<div class=\"emailcontent\">" + content +"</div>");
             messageBodyPart.setContent(html, "text/html");
             multipart.addBodyPart(messageBodyPart);
 
@@ -69,7 +69,6 @@ public class Mailer {
             msg.addRecipient(Message.RecipientType.TO,
                     new InternetAddress(to));
             Transport.send(msg);
-            System.out.println("Sent");
         }
         catch (Exception ex){
             System.out.print(ex.toString());

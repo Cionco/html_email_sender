@@ -11,6 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+
+import io.Mailer;
 import lib.CenterlessBorderLayout;
 
 public class MainFrame extends JFrame {
@@ -56,6 +58,7 @@ public class MainFrame extends JFrame {
 		southPane.add(btn_select_template);
 		
 		JButton btn_send = new JButton("Send");
+		btn_send.addActionListener(e -> Mailer.send(new io.Converter(txa_source.getText()).convertTextToHTML()));
 		southPane.add(btn_send);
 		
 		contentPane.add(southPane, CenterlessBorderLayout.SOUTH);
