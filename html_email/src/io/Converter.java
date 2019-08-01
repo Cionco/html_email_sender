@@ -14,7 +14,7 @@ public class Converter {
 		sb.append("<p>");
 		
 		WIP = WIP.replace("\n\n", "</p><p>")
-				.replaceAll("(?<=[^\n])\n(?=[^\n])", "<br>");
+				.replaceAll("(?<!\n)\n(?!\n)", "<br>");
 		sb.append(WIP = WIP.replace("\n\n", "</p><p>"));
 		sb.append("</p>");
 		return sb.toString();
