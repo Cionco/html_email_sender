@@ -59,10 +59,7 @@ public class Mailer {
             MimeMultipart multipart = new MimeMultipart("related");
 
             BodyPart messageBodyPart = new MimeBodyPart();
-            /*html = html.replace("FULLTOKENCODE", token);
-            html = html.replace("TOKENPARTONECODE", token.substring(0, 4));
-            html = html.replace("TOKENPARTTWOCODE", token.substring(4, 8));
-            html = html.replace("TOKENPARTTHREECODE", token.substring(8, 12));*/
+            
             messageBodyPart.setContent(html, "text/html");
             multipart.addBodyPart(messageBodyPart);
 
