@@ -1,6 +1,8 @@
 package io;
 
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -32,13 +34,14 @@ public class Mailer {
         }
     }
 	
-	public static void send(String content) {
+	public static void send(String content, String templateFile) {
+//		System.out.println(content);
 		String from = "jan@janriks.com";
         String to = "nicolas@divirad.com";
         String subject = "test";
         String message = "testmessage";
         String login = "jan@janriks.com";
-        String password = "***********";
+        String password = "************";
         
         Properties props = new Properties();
         props.setProperty("mail.host", "smtp.strato.de");
@@ -53,13 +56,14 @@ public class Mailer {
         MimeMessage msg = new MimeMessage(session);
 
         try{
-        	byte[] encoded = html.getBytes();//Files.readAllBytes(Paths.get(servletContext.getRealPath("/text/mailtemplate.html")));
+        	byte[] encoded = Files.readAllBytes(Paths.get(templateFile));
             String html = new String(encoded, Charset.forName("UTF-8"));
             
             MimeMultipart multipart = new MimeMultipart("related");
 
             BodyPart messageBodyPart = new MimeBodyPart();
             html = html.replace("<div class=\"emailcontent\"></div>", "<div class=\"emailcontent\">" + content +"</div>");
+            System.out.println(html);
             messageBodyPart.setContent(html, "text/html");
             multipart.addBodyPart(messageBodyPart);
 
@@ -71,7 +75,7 @@ public class Mailer {
             Transport.send(msg);
         }
         catch (Exception ex){
-            System.out.print(ex.toString());
+            ex.printStackTrace();
         }
 	}
 	

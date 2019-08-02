@@ -43,6 +43,10 @@ public class MainFrame extends JFrame {
 		
 		JPanel southPane = new JPanel();
 		southPane.setLayout(new GridLayout(1, 2));
+
+		JButton btn_send = new JButton("Send");
+		btn_send.setEnabled(false);
+		btn_send.addActionListener(e -> Mailer.send(new io.Converter(txa_source.getText()).convertTextToHTML(), templateFile));
 		
 		JButton btn_select_template = new JButton("Select Template Email");
 		btn_select_template.addActionListener(e -> {
@@ -52,13 +56,11 @@ public class MainFrame extends JFrame {
 			chooser.setFileFilter(filter);
 			int returnVal = chooser.showOpenDialog(MainFrame.this);
 			if(returnVal == JFileChooser.APPROVE_OPTION) {
-				templateFile = chooser.getSelectedFile().getName();
+				templateFile = chooser.getSelectedFile().getAbsolutePath();
+				btn_send.setEnabled(true);
 			}
 		});
 		southPane.add(btn_select_template);
-		
-		JButton btn_send = new JButton("Send");
-		btn_send.addActionListener(e -> Mailer.send(new io.Converter(txa_source.getText()).convertTextToHTML()));
 		southPane.add(btn_send);
 		
 		contentPane.add(southPane, CenterlessBorderLayout.SOUTH);
