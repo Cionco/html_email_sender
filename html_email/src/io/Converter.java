@@ -15,7 +15,9 @@ public class Converter {
 		ol();
 		ul();
 		WIP = WIP.replace("\n\n", "</p><p>")
-				.replaceAll("(?<!\n)\n(?!\n)", "<br>");
+				.replaceAll("(?<!\n)\n(?!\n)", "<br>")
+				.replaceAll("<p>(?=<[ou]l>)", "")
+				.replaceAll("(?<=</[ou]l>)</p>", "");
 		sb.append(WIP);
 		sb.append("</p>");
 		return sb.toString();
