@@ -38,7 +38,16 @@ public class Converter {
 																											//new line Character between the last index and this one if it's not the first index
 													i++, current = WIP.indexOf(i + ".")) {
 			ol.append("<li>");
-			String item = WIP.substring(current + 2, WIP.indexOf('\n', current)).trim();
+			String item;
+			try {
+				item = WIP.substring(current + 2, WIP.indexOf('\n', current)).trim();				
+			} catch(StringIndexOutOfBoundsException e) {
+				try {
+					item = WIP.substring(current + 2).trim();
+				} catch(StringIndexOutOfBoundsException ex) {
+					item = "";
+				}
+			}
 			ol.append(item);
 			ol.append("</li>");
 			last_item = WIP.indexOf('\n', current);
@@ -66,7 +75,16 @@ public class Converter {
 																											//new line Character between the last index and this one if it's not the first index
 													i++, current = WIP.indexOf("-", (last_start_line = current) + 1)) {
 			ul.append("<li>");
-			String item = WIP.substring(current + 1, WIP.indexOf('\n', current)).trim();
+			String item;
+			try {
+				item = WIP.substring(current + 1, WIP.indexOf('\n', current)).trim();				
+			} catch(StringIndexOutOfBoundsException e) {
+				try {
+					item = WIP.substring(current + 1).trim();
+				} catch(StringIndexOutOfBoundsException ex) {
+					item = "";
+				}
+			}
 			ul.append(item);
 			ul.append("</li>");
 			last_item = WIP.indexOf('\n', current);
